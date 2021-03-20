@@ -1,4 +1,4 @@
-name: Users CI
+name: Pet Club CI
 
 on:
     pull_request:
