@@ -1,12 +1,12 @@
 export class Pet {
     constructor(
-        readonly _id: string,
-        readonly _name: string,
-        readonly _type: string,
-        readonly _subtype: string,
-        readonly _gender: string,
-        readonly _description: string,
-        readonly _imagesUrls: string[]
+        private readonly _id: string,
+        private readonly _name: string,
+        private readonly _type: string,
+        private readonly _subtype: string,
+        private readonly _gender: string,
+        private readonly _description: string,
+        private readonly _imagesUrls: string[]
     ) {}
 
     get id(): string {
