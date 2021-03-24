@@ -1,77 +1,26 @@
-import { makeUser } from ".";
+import { insertUser } from ".";
 import { USER } from "../../../config";
-import { Pet } from "../pet/Pet";
+import { Pet } from "../../entities/pet/Pet";
 
-describe("testing createing user", () => {
-    it("should create user succefully", async () => {
-        let firstName = "Ahmed";
-        let lastName = "Shakshak";
-        let password = "VeryStrongPassword";
-        let gender = USER.MALE;
-        let email = "test1@gmail.com";
-        let city = 'cairo';
-        let pets: Pet[] = [];
-        let latitude = 0;
-        let longitude = 0;
-
-        let user = await makeUser({
-            firstName,
-            lastName,
-            email,
-            password,
-            profileImageUrl: '',
-            city,
-            gender,
-            pets,
-            latitude,
-            longitude
-        });
-        
-        expect(user).toBeDefined();
-        expect(user.id).toBeDefined();
-        expect(user.id.length).toBeGreaterThan(0);
-        expect(user.firstName).toEqual(firstName);
-        expect(user.lastName).toEqual(lastName);
-        expect(user.email).toEqual(email);
-        expect(user.gender).toEqual(gender);
-        expect(user.city).toEqual(city);
-        expect(user.hashedPassword.length).toEqual(2 * USER.HASH_LENGTH); // * 2 as the digest is 'hex'
-        expect(user.salt.length).toEqual(2 * USER.SALT_LENGTH); // * 2 as the digest is 'hex'
-        expect(user.profileImageUrl).toEqual('');
-        user.pets.forEach(p => expect(pets).toContain(p));
-        expect(user.latitude).toEqual(latitude);
-        expect(user.longitude).toEqual(longitude);
-    });
-
-    it("should create user succefully with default values", async () => {
+describe("testing inserting user", () => {
+    it("insert user with already exist email", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
         let email = "test1@gmail.com";
 
-        let user = await makeUser({
+        await expect(insertUser({
             firstName,
             lastName,
             email,
             password,
             profileImageUrl: '',
             gender,
-        });
-        
-        expect(user).toBeDefined();
-        expect(user.id).toBeDefined();
-        expect(user.id.length).toBeGreaterThan(0);
-        expect(user.firstName).toEqual(firstName);
-        expect(user.lastName).toEqual(lastName);
-        expect(user.email).toEqual(email);
-        expect(user.gender).toEqual(gender);
-        expect(user.hashedPassword.length).toEqual(2 * USER.HASH_LENGTH); // * 2 as the digest is 'hex'
-        expect(user.salt.length).toEqual(2 * USER.SALT_LENGTH); // * 2 as the digest is 'hex'
-        expect(user.profileImageUrl).toEqual('');
+        })).rejects.toThrow(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
     });
 
-    it("creating user with name length greater than maximum length", async () => {
+    it("inserting user with name length greater than maximum length", async () => {
         let firstName = ''; for(let i = 0; i < USER.NAME_MAXIMUM_LENGTH + 1; i ++) {firstName += 'a'};
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
@@ -81,7 +30,7 @@ describe("testing createing user", () => {
         let pets: Pet[] = [];
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -96,7 +45,7 @@ describe("testing createing user", () => {
         
     });
 
-    it("creating user with name length greater than maximum length", async () => {
+    it("inserting user with name length greater than maximum length", async () => {
         let firstName = 'ahmed';
         let lastName = '';  for(let i = 0; i < USER.NAME_MAXIMUM_LENGTH + 1; i ++) {lastName += 'a'};
         let password = "VeryStrongPassword";
@@ -106,7 +55,7 @@ describe("testing createing user", () => {
         let pets: Pet[] = [];
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -120,7 +69,7 @@ describe("testing createing user", () => {
         await expect(t).rejects.toThrow(USER.EXCEPTION_MESSAGE_NAME_MAXIMUM_LENGTH); 
     });
 
-    it("creating user with password length greater than maximum length", async () => {
+    it("inserting user with password length greater than maximum length", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MAXIMUM_LENGTH + 1; i++) {password += 'x'}
@@ -130,7 +79,7 @@ describe("testing createing user", () => {
         let pets: Pet[] = [];
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -145,7 +94,7 @@ describe("testing createing user", () => {
         
     });
 
-    it("creating user with password length less than minimum length", async () => {
+    it("inserting user with password length less than minimum length", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MINIMUM_LENGTH - 1; i++) {password += 'x'}
@@ -155,7 +104,7 @@ describe("testing createing user", () => {
         let pets: Pet[] = [];
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -170,7 +119,7 @@ describe("testing createing user", () => {
         
     });
 
-    it("creating user with invalid gender", async () => {
+    it("inserting user with invalid gender", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -180,7 +129,7 @@ describe("testing createing user", () => {
         let pets: Pet[] = [];
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -195,7 +144,7 @@ describe("testing createing user", () => {
         
     });
 
-    it("creating user with invalid email", async () => {
+    it("inserting user with invalid email", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -205,7 +154,7 @@ describe("testing createing user", () => {
         let pets: Pet[] = [];
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -219,7 +168,7 @@ describe("testing createing user", () => {
         await expect(t).rejects.toThrow(USER.EXCEPTION_MESSAGE_EMAIL_INVALID);    
     });
 
-    it("creating user with invalid latitude", async () => {
+    it("inserting user with invalid latitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -231,7 +180,7 @@ describe("testing createing user", () => {
         let longitude = 0;
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -247,7 +196,7 @@ describe("testing createing user", () => {
         await expect(t).rejects.toThrow(USER.EXCEPTION_MESSAGE_LATITUDE_INVALID);    
     });
 
-    it("creating user with invalid longitude", async () => {
+    it("inserting user with invalid longitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -259,7 +208,7 @@ describe("testing createing user", () => {
         let longitude = 200;
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -275,7 +224,7 @@ describe("testing createing user", () => {
         await expect(t).rejects.toThrow(USER.EXCEPTION_MESSAGE_LONGITUDE_INVALID);    
     });
 
-    it("creating user with latitude and without longitude", async () => {
+    it("inserting user with latitude and without longitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -286,7 +235,7 @@ describe("testing createing user", () => {
         let latitude = 0;
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
@@ -301,7 +250,7 @@ describe("testing createing user", () => {
         await expect(t).rejects.toThrow(USER.EXCEPTION_MESSAGE_LONGITUDE_INVALID);    
     });
 
-    it("creating user with longitude and without latitude", async () => {
+    it("inserting user with longitude and without latitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -312,7 +261,7 @@ describe("testing createing user", () => {
         let longitude = 0;
 
         let t = async () => {
-            await makeUser({
+            await insertUser({
                 firstName,
                 lastName,
                 email,
