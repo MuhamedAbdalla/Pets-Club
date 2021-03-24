@@ -11,7 +11,7 @@ export function buildMakeUser(
     vaildateUserGender: (gender: string) => void,
     vaildateUserEmail: (email: string) => void,
     vaildateUserLocation: (latitude: number, longitude: number) => void) {
-    return function makeUser(user: {
+    return async function makeUser(user: {
         readonly firstName: string,
         readonly lastName: string,
         readonly email: string,
@@ -22,13 +22,12 @@ export function buildMakeUser(
         readonly pets?: Pet[],
         readonly latitude?: number,
         readonly longitude?: number
-    }): User {
+    }): Promise<User> {
         vaildateUserName(user.firstName);
         vaildateUserName(user.lastName);
         vaildateUserPassword(user.password);
         vaildateUserGender(user.gender);
         vaildateUserEmail(user.email);
-        console.log(user.longitude, user.latitude)
         if(user.latitude != undefined && user.longitude != undefined) {
             vaildateUserLocation(user.latitude, user.longitude);
         }
