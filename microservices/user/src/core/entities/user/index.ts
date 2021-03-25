@@ -4,6 +4,7 @@ import * as EmailValidator from 'email-validator'
 
 import { buildMakeUser } from "./build-mak-user";
 import { USER } from "../../../config";
+import { getUserByEmail } from '../../usecases/user';
 
 
 const generateUserId = (): string => {
@@ -17,6 +18,12 @@ const generateSalt = (): string => {
 const hashPassword = (password: string, salt: string): string => { 
     return crypto.pbkdf2Sync(password, salt, USER.HASH_NUMBER_OF_ITERATIONS, USER.HASH_LENGTH, `sha512`)
     .toString(USER.HASH_DIGEST); 
+};
+
+export const verifyPassword = (password: string, salt: string, hashedPassword: string): boolean => { 
+    const hash = crypto.pbkdf2Sync(password, salt, USER.HASH_NUMBER_OF_ITERATIONS, USER.HASH_LENGTH, `sha512`)
+    .toString(USER.HASH_DIGEST); 
+    return hash == hashedPassword;
 };
 
 const vaildateUserName = (name: string) => {
@@ -41,9 +48,23 @@ const vaildateUserGender = (gender: string) => {
     }
 }
 
-const vaildateUserEmail = (email: string) => {
+const vaildateUserEmail = async (email: string) => {
     if(!EmailValidator.validate(email)) {
         throw new Error(USER.EXCEPTION_MESSAGE_EMAIL_INVALID);
+    }
+
+    let emailExist = false;
+    try {
+        // it should throw an error if the user doesn't exist
+        let u = await getUserByEmail(email);
+        console.log('ddddddddddddddddddddddddddddddddddddddddddddd', u);
+        emailExist = true;
+    } catch (error) {
+
+    }
+
+    if(emailExist) {
+        throw new Error(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
     }
 }
 

@@ -27,7 +27,6 @@ export function buildMakeUser(
         vaildateUserName(user.lastName);
         vaildateUserPassword(user.password);
         vaildateUserGender(user.gender);
-        vaildateUserEmail(user.email);
         if(user.latitude != undefined && user.longitude != undefined) {
             vaildateUserLocation(user.latitude, user.longitude);
         }
@@ -37,6 +36,7 @@ export function buildMakeUser(
         else if(user.latitude == undefined && user.longitude != undefined) {
             throw new Error(USER.EXCEPTION_MESSAGE_LATITUDE_INVALID);
         }
+        await vaildateUserEmail(user.email);
 
         const salt = generateSalt();
         const hashedPassword = hashPassword(user.password, salt);

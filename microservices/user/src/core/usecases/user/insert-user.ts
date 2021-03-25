@@ -19,19 +19,7 @@ export function buildInsertUser(insertUser: (user: User) => Promise<void>) {
             readonly longitude?: number
         }
     ): Promise<void> {
-        let emailExist = false;
         const userInstance = await makeUser(user);
-
-        try {
-            // it should throw an error if the user doesn't exist
-            let u = getUserByEmail(user.email);
-            emailExist = true;
-        } catch (error) {
-            await insertUser(userInstance);
-        }
-        
-        if(emailExist) {
-            throw new Error(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
-        }
+        await insertUser(userInstance);
     }
 }

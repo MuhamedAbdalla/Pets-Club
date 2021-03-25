@@ -1,14 +1,14 @@
-import { makeUser } from ".";
+import { makeUser, verifyPassword } from ".";
 import { USER } from "../../../config";
 import { Pet } from "../pet/Pet";
 
-describe("testing createing user", () => {
+describe("test createing user", () => {
     it("should create user succefully", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 0;
@@ -37,6 +37,7 @@ describe("testing createing user", () => {
         expect(user.city).toEqual(city);
         expect(user.hashedPassword.length).toEqual(2 * USER.HASH_LENGTH); // * 2 as the digest is 'hex'
         expect(user.salt.length).toEqual(2 * USER.SALT_LENGTH); // * 2 as the digest is 'hex'
+        expect(verifyPassword(password, user.salt, user.hashedPassword)).toBeTruthy();
         expect(user.profileImageUrl).toEqual('');
         user.pets.forEach(p => expect(pets).toContain(p));
         expect(user.latitude).toEqual(latitude);
@@ -48,7 +49,7 @@ describe("testing createing user", () => {
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
 
         let user = await makeUser({
             firstName,
@@ -76,7 +77,7 @@ describe("testing createing user", () => {
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -101,7 +102,7 @@ describe("testing createing user", () => {
         let lastName = '';  for(let i = 0; i < USER.NAME_MAXIMUM_LENGTH + 1; i ++) {lastName += 'a'};
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -150,7 +151,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MINIMUM_LENGTH - 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -175,7 +176,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = 'asdasdeqwd';
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -200,7 +201,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1gmail.com";
+        let email = "usercase1gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -224,7 +225,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 200;
@@ -252,7 +253,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 0;
@@ -280,7 +281,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 0;
@@ -306,7 +307,7 @@ describe("testing createing user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = "usercase1@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let longitude = 0;
