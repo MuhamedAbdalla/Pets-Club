@@ -1,5 +1,3 @@
-import { getUserByEmail } from ".";
-import { USER } from "../../../config";
 import { Pet } from "../../entities/pet/Pet";
 import { makeUser } from "../../entities/user";
 import { User } from "../../entities/user/user";
@@ -18,8 +16,9 @@ export function buildInsertUser(insertUser: (user: User) => Promise<void>) {
             readonly latitude?: number,
             readonly longitude?: number
         }
-    ): Promise<void> {
+    ): Promise<User> {
         const userInstance = await makeUser(user);
         await insertUser(userInstance);
+        return userInstance;
     }
 }

@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import * as EmailValidator from 'email-validator'
 
 import { buildMakeUser } from "./build-mak-user";
+import { buildEditUser } from "./build-edit-user";
 import { USER } from "../../../config";
 import { getUserByEmail } from '../../usecases/user';
 
@@ -57,7 +58,6 @@ const vaildateUserEmail = async (email: string) => {
     try {
         // it should throw an error if the user doesn't exist
         let u = await getUserByEmail(email);
-        console.log('ddddddddddddddddddddddddddddddddddddddddddddd', u);
         emailExist = true;
     } catch (error) {
 
@@ -81,6 +81,15 @@ const vaildateUserLocation = (latitude: number, longitude: number) => {
 
 export const makeUser = buildMakeUser(
     generateUserId, 
+    generateSalt, 
+    hashPassword,
+    vaildateUserName,
+    vaildateUserPassword,
+    vaildateUserGender,
+    vaildateUserEmail,
+    vaildateUserLocation);
+
+export const editUser = buildEditUser(
     generateSalt, 
     hashPassword,
     vaildateUserName,

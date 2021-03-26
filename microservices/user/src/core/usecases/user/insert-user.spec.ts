@@ -1,8 +1,30 @@
 import { insertUser } from ".";
 import { USER } from "../../../config";
+import { UserDb } from "../../data-access/user";
 import { Pet } from "../../entities/pet/Pet";
+import { generateRandomString } from "../../entities/util";
 
 describe("testing inserting user", () => {
+    let createdDocsId: string[] = [];
+
+    it("insert valid user", async () => {
+        let firstName = "Ahmed";
+        let lastName = "Shakshak";
+        let password = "VeryStrongPassword";
+        let gender = USER.MALE;
+        let email = generateRandomString(16) +  "@gmail.com";
+        let u = await insertUser({
+            firstName,
+            lastName,
+            email,
+            password,
+            profileImageUrl: '',
+            gender,
+        });
+        expect(u).toBeDefined();
+        createdDocsId.push(u.id);
+    });
+
     it("insert user with already exist email", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
@@ -274,5 +296,9 @@ describe("testing inserting user", () => {
             });
         }
         await expect(t).rejects.toThrow(USER.EXCEPTION_MESSAGE_LATITUDE_INVALID);    
+    });
+
+    afterAll(async () => {
+        await Promise.all(createdDocsId.map( id => UserDb.deletetUserById(id)));
     });
 });

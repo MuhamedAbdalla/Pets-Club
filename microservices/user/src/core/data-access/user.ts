@@ -10,14 +10,40 @@ export class UserDb {
             .set(this.userToJson(user));
     }
 
+    public static async updatetUser(user: User): Promise<void> {
+        await db
+            .collection(DATABASE.USER_COLLECTION_ENTRY)
+            .doc(user.id)
+            .update(this.userToJson(user));
+    }
+
     public static async getUserByEmail(email: string): Promise<User> {
         const snapshot = await db
             .collection(DATABASE.USER_COLLECTION_ENTRY)
             .where(DATABASE.USER_EMAIL_ENTRY, DB_OPERATION.EQUAL, email).get();
         if(snapshot.empty) {
-            throw new Error(USER.EXCEPTION_MESSAGE_EMAIL_DOES_NOT_EXISTS);
+            throw new Error(USER.EXCEPTION_MESSAGE_USER_DOES_NOT_EXISTS);
         }
         return this.docToUser(snapshot.docs[0]);
+    }
+
+    public static async getUserById(id: string): Promise<User> {
+        const doc = await db
+            .collection(DATABASE.USER_COLLECTION_ENTRY)
+            .doc(id)
+            .get();
+        let u = doc.data()
+        if(!doc.exists || u == undefined) {
+            throw new Error(USER.EXCEPTION_MESSAGE_USER_DOES_NOT_EXISTS);
+        }
+        return this.docToUser(u);
+    }
+
+    public static async deletetUserById(id: string): Promise<void> {
+        const doc = await db
+            .collection(DATABASE.USER_COLLECTION_ENTRY)
+            .doc(id)
+            .delete();
     }
 
     private static userToJson(user: User) {
@@ -36,7 +62,7 @@ export class UserDb {
         return userJson;
     }
 
-    private static docToUser(user: firebase.default.firestore.QueryDocumentSnapshot<firebase.default.firestore.DocumentData>): User {
+    private static docToUser(user: firebase.default.firestore.DocumentData): User {
         return new User(
         user[DATABASE.USER_ID_ENTRY],
         user[DATABASE.USER_FIRST_NAME_ENTRY],
