@@ -1,6 +1,10 @@
+global.XMLHttpRequest = require("xhr2");
+
 import { DATABASE, DB_OPERATION, USER } from "../../config";
 import { User } from "../entities/user/user";
-import { db } from './admin'
+import { db, storageRef } from './admin';
+import * as fs from 'fs';
+import { UserNotExist } from "../entities/user/exceptions/user";
 
 export class UserDb {
     public static async insertUser(user: User): Promise<void> {
@@ -8,6 +12,24 @@ export class UserDb {
             .collection(DATABASE.USER_COLLECTION_ENTRY)
             .doc(user.id)
             .set(this.userToJson(user));
+    }
+
+    public static async addImage(imageBase64: string, userId: string): Promise<string> {
+        const imagePath = DATABASE.USER_PROFILE_IMAGE_ENTERY + '/' + userId + '.png';
+        const imageDiskPath = 'temp/' + userId + '.png';
+        const imageRef = storageRef.child(imagePath);
+        const t = async (imageRef: firebase.default.storage.Reference, imagePath, imageBase64) => {
+            fs.writeFileSync(`./${imagePath}`, imageBase64, 'base64');
+            const data = fs.readFileSync(`./${imagePath}`);
+            fs.unlink(`./${imagePath}`, (err) => {
+                if(err) {
+                    console.log(err);
+                }
+            });
+            return imageRef.put(data);
+        }  
+        const uploadTask = await t(imageRef, imageDiskPath, imageBase64);
+        return await uploadTask.ref.getDownloadURL();
     }
 
     public static async updatetUser(user: User): Promise<void> {
@@ -22,7 +44,7 @@ export class UserDb {
             .collection(DATABASE.USER_COLLECTION_ENTRY)
             .where(DATABASE.USER_EMAIL_ENTRY, DB_OPERATION.EQUAL, email).get();
         if(snapshot.empty) {
-            throw new Error(USER.EXCEPTION_MESSAGE_USER_DOES_NOT_EXISTS);
+            throw new UserNotExist();
         }
         return this.docToUser(snapshot.docs[0]);
     }
@@ -34,7 +56,7 @@ export class UserDb {
             .get();
         let u = doc.data()
         if(!doc.exists || u == undefined) {
-            throw new Error(USER.EXCEPTION_MESSAGE_USER_DOES_NOT_EXISTS);
+            throw new UserNotExist();
         }
         return this.docToUser(u);
     }
