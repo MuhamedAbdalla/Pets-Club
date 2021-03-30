@@ -1,6 +1,7 @@
 import { User } from "./user";
 import { Pet } from "../pet/Pet";
 import { USER } from "../../../config";
+import { LatitudeNotValid, LongitudeNotValid } from "./exceptions/location";
 
 export function buildMakeUser(
     generateUserId:() => string,
@@ -31,10 +32,10 @@ export function buildMakeUser(
             vaildateUserLocation(user.latitude, user.longitude);
         }
         else if(user.latitude != undefined && user.longitude == undefined) {
-            throw new Error(USER.EXCEPTION_MESSAGE_LONGITUDE_INVALID);
+            throw new LongitudeNotValid();
         }
         else if(user.latitude == undefined && user.longitude != undefined) {
-            throw new Error(USER.EXCEPTION_MESSAGE_LATITUDE_INVALID);
+            throw new LatitudeNotValid();
         }
         await vaildateUserEmail(user.email);
 

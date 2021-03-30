@@ -18,7 +18,7 @@ describe("testing inserting user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -37,7 +37,7 @@ describe("testing inserting user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         })).rejects.toThrow(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
     });
@@ -57,7 +57,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets
@@ -82,7 +82,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets
@@ -106,7 +106,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets
@@ -131,7 +131,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets
@@ -156,7 +156,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets
@@ -181,7 +181,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets
@@ -207,7 +207,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets,
@@ -235,7 +235,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets,
@@ -262,7 +262,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets,
@@ -288,7 +288,7 @@ describe("testing inserting user", () => {
                 lastName,
                 email,
                 password,
-                profileImageUrl: '',
+                profileImageBase64: '',
                 city,
                 gender,
                 pets,

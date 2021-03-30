@@ -6,6 +6,11 @@ import { buildMakeUser } from "./build-mak-user";
 import { buildEditUser } from "./build-edit-user";
 import { USER } from "../../../config";
 import { getUserByEmail } from '../../usecases/user';
+import { EmailAlreadyExist, EmailNotValid } from './exceptions/email';
+import { LatitudeNotValid, LongitudeNotValid } from './exceptions/location';
+import { GenderNotValid } from './exceptions/gender';
+import { PasswordBeyondMinimumLength, PasswordExceededMaximumLength } from './exceptions/password';
+import { NameExceededMaximumLength } from './exceptions/name';
 
 
 const generateUserId = (): string => {
@@ -29,29 +34,29 @@ export const verifyPassword = (password: string, salt: string, hashedPassword: s
 
 const vaildateUserName = (name: string) => {
     if(USER.NAME_MAXIMUM_LENGTH < name.length) {
-        throw new Error(USER.EXCEPTION_MESSAGE_NAME_MAXIMUM_LENGTH);
+        throw new NameExceededMaximumLength();
     }
 }
 
 const vaildateUserPassword = (password: string) => {
     if(USER.PASSWORD_MAXIMUM_LENGTH < password.length) {
-        throw new Error(USER.EXCEPTION_MESSAGE_PASSWORD_MAXIMUM_LENGTH);
+        throw new PasswordExceededMaximumLength();
     }
 
     if(USER.PASSWORD_MINIMUM_LENGTH > password.length) {
-        throw new Error(USER.EXCEPTION_MESSAGE_PASSWORD_MINIMUM_LENGTH);
+        throw new PasswordBeyondMinimumLength();
     }
 }
 
 const vaildateUserGender = (gender: string) => {
     if(USER.MALE != gender && USER.FEMALE != gender) {
-        throw new Error(USER.EXCEPTION_MESSAGE_GENDER_INVALID);
+        throw new GenderNotValid();
     }
 }
 
 const vaildateUserEmail = async (email: string) => {
     if(!EmailValidator.validate(email)) {
-        throw new Error(USER.EXCEPTION_MESSAGE_EMAIL_INVALID);
+        throw new EmailNotValid();
     }
 
     let emailExist = false;
@@ -64,17 +69,17 @@ const vaildateUserEmail = async (email: string) => {
     }
 
     if(emailExist) {
-        throw new Error(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
+        throw new EmailAlreadyExist;
     }
 }
 
 const vaildateUserLocation = (latitude: number, longitude: number) => {
     if(USER.LATITUDE_MAXIMUM_VALUE < latitude || USER.LATITUDE_MINIMUM_VALUE > latitude) {
-        throw new Error(USER.EXCEPTION_MESSAGE_LATITUDE_INVALID);
+        throw new LatitudeNotValid();
     }
 
     if(USER.LONGITUDE_MAXIMUM_VALUE < longitude || USER.LONGITUDE_MINIMUM_VALUE > longitude) {
-        throw new Error(USER.EXCEPTION_MESSAGE_LONGITUDE_INVALID);
+        throw new LongitudeNotValid();
     }
 }
 

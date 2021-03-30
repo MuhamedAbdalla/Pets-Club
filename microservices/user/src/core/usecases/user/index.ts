@@ -8,6 +8,10 @@ const insertUserDb = async function(user: User) {
     await UserDb.insertUser(user);
 }
 
+const addImage = async function(imageBase64: string, userId: string): Promise<string> {
+    return await UserDb.addImage(imageBase64, userId);
+}
+
 const getUserByEmailDb = async function(email: string) {
     return await UserDb.getUserByEmail(email);
 }
@@ -20,7 +24,7 @@ const updateUserDb = async function(user: User) {
     await UserDb.updatetUser(user);
 }
 
-export const insertUser = buildInsertUser(insertUserDb);
+export const insertUser = buildInsertUser(insertUserDb, addImage);
 export const getUserByEmail = buildGetUserByEmail(getUserByEmailDb);
 export const getUserById = buildGetUserById(getUserByIdDb);
-export const updateUser = buildUpdateUser(updateUserDb);
+export const updateUser = buildUpdateUser(updateUserDb, addImage);

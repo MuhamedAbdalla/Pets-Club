@@ -12,6 +12,7 @@ export const USER_PETS_ENTRY: string = "PETS";
 export const USER_CITY_ENTRY: string = "CITY";
 export const USER_LATITUDE_ENTRY: string = "LATITUDE";
 export const USER_LONGITUDE_ENTRY: string = "LONGITUDE";
+export const USER_PROFILE_IMAGE_ENTERY = 'PROFILE_IMAGE';
 
 
 

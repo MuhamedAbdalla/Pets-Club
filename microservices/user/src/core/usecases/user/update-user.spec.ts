@@ -19,7 +19,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -29,7 +29,7 @@ describe("testing updating user", () => {
             firstName: u.firstName.slice(1),
             email: u.email.slice(1),
             password: password.slice(1),
-            profileImageUrl: '2',
+            profileImageBase64: '2',
             gender: USER.FEMALE,
         })).resolves.not.toThrowError();
     });
@@ -45,7 +45,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -72,7 +72,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -100,7 +100,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -127,7 +127,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -155,7 +155,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -184,7 +184,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -213,7 +213,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
         });
         expect(u).toBeDefined();
@@ -243,7 +243,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
             latitude,
             longitude
@@ -275,7 +275,7 @@ describe("testing updating user", () => {
             lastName,
             email,
             password,
-            profileImageUrl: '',
+            profileImageBase64: '',
             gender,
             longitude,
             latitude
