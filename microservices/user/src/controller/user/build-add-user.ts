@@ -1,9 +1,26 @@
 import { API } from "../../config"
-import { User } from "../../core/entities/user/user";
 import { insertUser } from "../../core/usecases/user";
+import { MissingParameter } from "./exception/parameters";
+import { userTOJsonRes } from "./util";
 
 export function buildAddUser() {
     return async (req: {}): Promise<{type: string, body: {}, statusCode: number}> => {
+        if(!req[API.USER.FIRST_NAME]){
+            throw new MissingParameter(API.USER.FIRST_NAME);   
+        }
+        if(!req[API.USER.LAST_NAME]){
+            throw new MissingParameter(API.USER.LAST_NAME);
+        }
+        if(!req[API.USER.PASSWORD]){
+            throw new MissingParameter(API.USER.PASSWORD);
+        }
+        if(!req[API.USER.EMAIL]){
+            throw new MissingParameter(API.USER.EMAIL);
+        }
+        if(!req[API.USER.GENDER]){
+            throw new MissingParameter(API.USER.GENDER);
+        }
+
         const firstName = req[API.USER.FIRST_NAME];
         const lastName = req[API.USER.LAST_NAME];
         const password = req[API.USER.PASSWORD];
@@ -31,17 +48,4 @@ export function buildAddUser() {
             statusCode: 200
         }
     }
-}
-
-
-function userTOJsonRes(user: User) {
-    let ret = {};
-    ret[API.USER.ID] = user.id;
-    ret[API.USER.FIRST_NAME] = user.firstName;
-    ret[API.USER.LAST_NAME] = user.lastName;
-    ret[API.USER.EMAIL] = user.email;
-    ret[API.USER.GENDER] = user.gender;
-    ret[API.USER.PROFILE_IMAGE_URL] = user.profileImageUrl;
-    ret[API.USER.CITY] = user.city;
-    return ret;
 }
