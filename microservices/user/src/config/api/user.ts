@@ -1,12 +1,12 @@
+export const ABS_ENDPOINT = '/user';
 export const ID: string = "ID";
 export const FIRST_NAME: string = "first_name";
 export const LAST_NAME: string = "last_name";
 export const PASSWORD: string = "password";
 export const EMAIL: string = "email";
+export const GENDER: string = "gender";
 export const PROFILE_IMAGE: string = "profile_image";
 export const PROFILE_IMAGE_URL: string = "profile_image_url";
-export const GENDER: string = "gender";
 export const CITY: string = "city";
 export const LATITUDE: string = "latitude";
 export const LONGITUDE: string = "longitude";
-export const ABS_ENDPOINT = '/user';
