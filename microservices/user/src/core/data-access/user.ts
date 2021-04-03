@@ -46,7 +46,7 @@ export class UserDb {
         if(snapshot.empty) {
             throw new UserNotExist();
         }
-        return this.docToUser(snapshot.docs[0]);
+        return this.docToUser(snapshot.docs[0].data());
     }
 
     public static async getUserById(id: string): Promise<User> {
