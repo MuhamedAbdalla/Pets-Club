@@ -1,6 +1,7 @@
 import { makeUser, verifyPassword } from ".";
 import { USER } from "../../../config";
 import { Pet } from "../pet/Pet";
+import { generateRandomString } from "../util";
 
 describe("test createing user", () => {
     it("should create user succefully", async () => {
@@ -126,7 +127,7 @@ describe("test createing user", () => {
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MAXIMUM_LENGTH + 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 

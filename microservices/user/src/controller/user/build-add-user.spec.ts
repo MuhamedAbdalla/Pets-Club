@@ -1,14 +1,14 @@
-import { app } from '../';
+import { app } from '..';
 import { API, USER } from "../../config";
 import { generateRandomString } from "../../core/entities/util";
 import Request from 'supertest'
 import { UserDb } from '../../core/data-access/user';
 import { MissingParameter } from './exception/parameters'; 
 
-describe("testing inserting user", () => {
+describe("testing registering user", () => {
     let createdDocsId: string[] = [];
 
-    it("insert valid user", async () => {
+    it("register valid user", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
@@ -16,143 +16,160 @@ describe("testing inserting user", () => {
         let email = generateRandomString(16) +  "@gmail.com";
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(200);
-        createdDocsId.push(res.body.id);
+        createdDocsId.push(res.body[API.USER.USER_KEY_NAME][API.USER.ID_KEY_NAME]);
     });
 
-    it("insert user missing firstname", async () => {
+    it("register user missing firstname", async () => {
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
         let email = generateRandomString(16) +  "@gmail.com";
         let req = {};
         
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(400);
-        expect(res.body.message).toBe(new MissingParameter(API.USER.FIRST_NAME).message);
+        expect(res.body.message).toBe(new MissingParameter(API.USER.FIRST_NAME_KEY_NAME).message);
     });
     
-    it("insert user missing lastname", async () => {
+    it("register user missing lastname", async () => {
         let firstName = "Ahmed";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
         let email = generateRandomString(16) +  "@gmail.com";
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(400);
-        expect(res.body.message).toBe(new MissingParameter(API.USER.LAST_NAME).message);
+        expect(res.body.message).toBe(new MissingParameter(API.USER.LAST_NAME_KEY_NAME).message);
     });
 
-    it("insert user missing password", async () => {
+    it("register user missing password", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let gender = USER.MALE;
         let email = generateRandomString(16) +  "@gmail.com";
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(400);
-        expect(res.body.message).toBe(new MissingParameter(API.USER.PASSWORD).message);
+        expect(res.body.message).toBe(new MissingParameter(API.USER.PASSWORD_KEY_NAME).message);
     });
 
-    it("insert user missing email", async () => {
+    it("register user missing email", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(400);
-        expect(res.body.message).toBe(new MissingParameter(API.USER.EMAIL).message);
+        expect(res.body.message).toBe(new MissingParameter(API.USER.EMAIL_KEY_NAME).message);
     });
 
-    it("insert user missing gender", async () => {
+    it("register user missing gender", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let email = generateRandomString(16) +  "@gmail.com";
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.PASSWORD] = password;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(400);
-        expect(res.body.message).toBe(new MissingParameter(API.USER.GENDER).message);
+        expect(res.body.message).toBe(new MissingParameter(API.USER.GENDER_KEY_NAME).message);
     });
 
 
-    it("insert user with already exist email", async () => {
+    it("register user with an already exist email", async () => {
         let firstName = "Ahmed";
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let req = {};
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
+        expect(res).toBeDefined();
+        expect(res.status).toBe(200);
+        createdDocsId.push(res.body[API.USER.USER_KEY_NAME][API.USER.ID_KEY_NAME]);
+
+        firstName = "Ahmed";
+        lastName = "Shakshak";
+        password = "VeryStrongPassword";
+        gender = USER.MALE;
+        req = {};
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
+        
+        res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
         expect(res.status).toBe(400);
         expect(res.body.message).toBe(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
     });
 
-    it("inserting user with name length greater than maximum length", async () => {
+    it("registering user with name length greater than maximum length", async () => {
         let firstName = ''; for(let i = 0; i < USER.NAME_MAXIMUM_LENGTH + 1; i ++) {firstName += 'a'};
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -161,21 +178,21 @@ describe("testing inserting user", () => {
         
     });
 
-    it("inserting user with name length greater than maximum length", async () => {
+    it("registering user with name length greater than maximum length", async () => {
         let firstName = 'ahmed';
         let lastName = '';  for(let i = 0; i < USER.NAME_MAXIMUM_LENGTH + 1; i ++) {lastName += 'a'};
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -183,21 +200,21 @@ describe("testing inserting user", () => {
         expect(res.body.message).toBe(USER.EXCEPTION_MESSAGE_NAME_MAXIMUM_LENGTH); 
     });
 
-    it("inserting user with password length greater than maximum length", async () => {
+    it("registering user with password length greater than maximum length", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MAXIMUM_LENGTH + 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -206,21 +223,21 @@ describe("testing inserting user", () => {
         
     });
 
-    it("inserting user with password length less than minimum length", async () => {
+    it("registering user with password length less than minimum length", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MINIMUM_LENGTH - 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -229,21 +246,21 @@ describe("testing inserting user", () => {
         
     });
 
-    it("inserting user with invalid gender", async () => {
+    it("registering user with invalid gender", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = 'asdasdeqwd';
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -252,7 +269,7 @@ describe("testing inserting user", () => {
         
     });
 
-    it("inserting user with invalid email", async () => {
+    it("registering user with invalid email", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
@@ -261,12 +278,12 @@ describe("testing inserting user", () => {
         let city = 'cairo';
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -274,25 +291,25 @@ describe("testing inserting user", () => {
         expect(res.body.message).toBe(USER.EXCEPTION_MESSAGE_EMAIL_INVALID);    
     });
 
-    it("inserting user with invalid latitude", async () => {
+    it("registering user with invalid latitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let latitude = 400;
         let longitude = 0;
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
-        req[API.USER.LATITUDE] = latitude;
-        req[API.USER.LONGITUDE] = longitude;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
+        req[API.USER.LATITUDE_KEY_NAME] = latitude;
+        req[API.USER.LONGITUDE_KEY_NAME] = longitude;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -300,26 +317,26 @@ describe("testing inserting user", () => {
         expect(res.body.message).toBe(USER.EXCEPTION_MESSAGE_LATITUDE_INVALID);    
     });
 
-    it("inserting user with invalid longitude", async () => {
+    it("registering user with invalid longitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let latitude = 0;
         let longitude = 400;
 
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.LONGITUDE] = longitude;
-        req[API.USER.LATITUDE] = latitude;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.LONGITUDE_KEY_NAME] = longitude;
+        req[API.USER.LATITUDE_KEY_NAME] = latitude;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -327,24 +344,24 @@ describe("testing inserting user", () => {
         expect(res.body.message).toBe(USER.EXCEPTION_MESSAGE_LONGITUDE_INVALID);    
     });
 
-    it("inserting user with latitude and without longitude", async () => {
+    it("registering user with latitude and without longitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let latitude = 0;
 
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.LATITUDE] = latitude;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.LATITUDE_KEY_NAME] = latitude;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();
@@ -352,24 +369,24 @@ describe("testing inserting user", () => {
         expect(res.body.message).toBe(USER.EXCEPTION_MESSAGE_LONGITUDE_INVALID);    
     });
 
-    it("inserting user with longitude and without latitude", async () => {
+    it("registering user with longitude and without latitude", async () => {
         let firstName = 'ahmed';
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let longitude = 0;
 
         let req = {};
         
-        req[API.USER.FIRST_NAME] = firstName;
-        req[API.USER.LAST_NAME] = lastName;
-        req[API.USER.EMAIL] = email;
-        req[API.USER.CITY] = city;
-        req[API.USER.LONGITUDE] = longitude;
-        req[API.USER.PASSWORD] = password;
-        req[API.USER.GENDER] = gender;
+        req[API.USER.FIRST_NAME_KEY_NAME] = firstName;
+        req[API.USER.LAST_NAME_KEY_NAME] = lastName;
+        req[API.USER.EMAIL_KEY_NAME] = email;
+        req[API.USER.CITY_KEY_NAME] = city;
+        req[API.USER.LONGITUDE_KEY_NAME] = longitude;
+        req[API.USER.PASSWORD_KEY_NAME] = password;
+        req[API.USER.GENDER_KEY_NAME] = gender;
         
         let res = await Request(app).post(API.ABS_ENDPOINT_REGISTER).send(req);
         expect(res).toBeDefined();

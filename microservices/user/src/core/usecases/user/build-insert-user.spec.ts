@@ -30,7 +30,17 @@ describe("testing inserting user", () => {
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
+        let u = await insertUser({
+            firstName,
+            lastName,
+            email,
+            password,
+            profileImageBase64: '',
+            gender,
+        });
+        expect(u).toBeDefined();
+        createdDocsId.push(u.id);
 
         await expect(insertUser({
             firstName,
@@ -47,7 +57,7 @@ describe("testing inserting user", () => {
         let lastName = "Shakshak";
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -72,7 +82,7 @@ describe("testing inserting user", () => {
         let lastName = '';  for(let i = 0; i < USER.NAME_MAXIMUM_LENGTH + 1; i ++) {lastName += 'a'};
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -96,7 +106,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MAXIMUM_LENGTH + 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -121,7 +131,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MINIMUM_LENGTH - 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -146,7 +156,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = 'asdasdeqwd';
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
 
@@ -195,7 +205,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 200;
@@ -223,7 +233,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 0;
@@ -251,7 +261,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let latitude = 0;
@@ -277,7 +287,7 @@ describe("testing inserting user", () => {
         let lastName = 'shakshak';
         let password = "VeryStrongPassword";
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let pets: Pet[] = [];
         let longitude = 0;
