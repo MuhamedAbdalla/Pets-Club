@@ -1,6 +1,6 @@
 export const serviceAccountKey = require('./serviceAccountKey.json');
-export const bucketName = 'eat-up-e24f9.appspot.com';
-export const bucketUrl = 'gs://eat-up-e24f9.appspot.com/';
+export const bucketName = 'pet-club-1d2bb.appspot.com';
+export const bucketUrl = 'gs://pet-club-1d2bb.appspot.com/';
 export const read = 'read';
 export const expiration = '03-09-10000';
 

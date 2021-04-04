@@ -1,6 +1,6 @@
 import { editUser, verifyPassword } from ".";
 import { USER } from "../../../config";
-import { Pet } from "../pet/Pet";
+import { Pet } from "../pet/pet";
 
 describe("test editing user", () => {
     it("should edit full user succefully", async () => {

@@ -27,3 +27,11 @@ jobs:
               run: |
                   npm install "microservices/user" --production=false
                   cd "microservices/user" &&  npm install @typescript-eslint/eslint-plugin@latest --save-dev && npx eslint "./**.ts"
+            - name: Pet tests
+              run: |
+                npm install "microservices/user" --production=false
+                cd "microservices/user/src/core/usecases/pet" && npm test "pet-services.spec.ts"
+            - name: image test
+              run: |
+                npm install "microservices/user" --production=false
+                cd "microservices/user/src/core/data-access" && npm test "image-manager.spec.ts"
