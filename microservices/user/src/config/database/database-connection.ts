@@ -1,4 +1,9 @@
 export const serviceAccountKey = require('./serviceAccountKey.json');
+export const bucketName = 'eat-up-e24f9.appspot.com';
+export const bucketUrl = 'gs://eat-up-e24f9.appspot.com/';
+export const read = 'read';
+export const expiration = '03-09-10000';
+
 export const firebaseConfig = {
     apiKey: "AIzaSyBORHsyW0azMSm29JJmqL3sazooVNgCICc",
     authDomain: "pet-club-1d2bb.firebaseapp.com",

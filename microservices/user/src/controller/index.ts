@@ -1,9 +1,7 @@
 import express from 'express';
 import { json } from 'body-parser';
 import { API } from '../config';
-import { makeExpressCallback } from './express-callback';
-import { addUser, buildAddUser } from './user';
-
+import { addUser } from './user';
 export * from './user'
 
 export const app = express();
