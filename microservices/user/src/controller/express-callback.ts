@@ -1,5 +1,5 @@
 import express from 'express';
-import { USER } from '../config';
+import { API, USER } from '../config';
 import { Exception } from '../core/entities/exception';
 
 export function makeExpressCallback(controller) {
@@ -8,7 +8,10 @@ export function makeExpressCallback(controller) {
             body: req.body,
             ip: req.ip,
         };
-        
+        if(req.headers[API.AUTH.ACCESS_TOKEN_KEY_NAME]) {
+            httpRequest.body[API.AUTH.ACCESS_TOKEN_KEY_NAME] = req.headers[API.AUTH.ACCESS_TOKEN_KEY_NAME];
+        }
+
         controller(httpRequest.body)
             .then((httpResponse: {
                 type: string, 

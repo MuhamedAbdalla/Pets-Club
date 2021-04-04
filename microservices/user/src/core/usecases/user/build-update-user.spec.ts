@@ -50,9 +50,25 @@ describe("testing updating user", () => {
         expect(u).toBeDefined();
         createdDocsId.push(u.id);
 
+        firstName = "Ahmed";
+        lastName = "Shakshak";
+        password = "VeryStrongPassword";
+        gender = USER.MALE;
+        let email2 = generateRandomString(16) +  "@gmail.com";
+        u = await insertUser({
+            firstName,
+            lastName,
+            email: email2,
+            password,
+            profileImageBase64: '',
+            gender,
+        });
+        expect(u).toBeDefined();
+        createdDocsId.push(u.id);
+
         await expect(updateUser({
             id: u.id,
-            email: 'test1@gmail.com'
+            email: email
         })).rejects.toThrow(USER.EXCEPTION_MESSAGE_EMAIL_ALREADY_EXISTS);
     });
 

@@ -1,6 +1,7 @@
 import { editUser, verifyPassword } from ".";
 import { USER } from "../../../config";
 import { Pet } from "../pet/pet";
+import { generateRandomString } from "../util";
 
 describe("test editing user", () => {
     it("should edit full user succefully", async () => {
@@ -133,7 +134,7 @@ describe("test editing user", () => {
         let lastName = 'shakshak';
         let password = ""; for(let i = 0; i < USER.PASSWORD_MAXIMUM_LENGTH + 1; i++) {password += 'x'}
         let gender = USER.MALE;
-        let email = "test1@gmail.com";
+        let email = generateRandomString(16) +  "@gmail.com";
         let city = 'cairo';
         let latitude = 0;
         let longitude = 0;
