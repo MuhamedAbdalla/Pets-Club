@@ -23,10 +23,6 @@ jobs:
               run: |
                   npm uninstall typescript --no-save
                   npm uninstall tslint --no-save
-            - name: install user dependencies
-              run: |
-                  npm install "microservices/user" --production=false
-                  cd "microservices/user" &&  npm install @typescript-eslint/eslint-plugin@latest --save-dev && npx eslint "./**.ts"
             - name: Pet tests
               run: |
                 npm install "microservices/user" --production=false
