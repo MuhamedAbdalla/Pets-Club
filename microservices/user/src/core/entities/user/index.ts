@@ -1,8 +1,8 @@
 import * as uuid from 'uuid';
 import crypto from 'crypto';
-import * as EmailValidator from 'email-validator'
+import * as EmailValidator from 'email-validator';
 
-import { buildMakeUser } from "./build-mak-user";
+import { buildMakeUser } from "./build-make-user";
 import { buildEditUser } from "./build-edit-user";
 import { USER } from "../../../config";
 import { getUserByEmail } from '../../usecases/user';

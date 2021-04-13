@@ -1,7 +1,7 @@
 import { insertUser } from ".";
 import { USER } from "../../../config";
 import { UserDb } from "../../data-access/user";
-import { Pet } from "../../entities/pet/Pet";
+import { Pet } from "../../entities/pet/pet";
 import { generateRandomString } from "../../entities/util";
 
 describe("testing inserting user", () => {

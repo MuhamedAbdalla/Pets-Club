@@ -13,6 +13,12 @@ export const USER_CITY_ENTRY: string = "CITY";
 export const USER_LATITUDE_ENTRY: string = "LATITUDE";
 export const USER_LONGITUDE_ENTRY: string = "LONGITUDE";
 export const USER_PROFILE_IMAGE_ENTERY = 'PROFILE_IMAGE';
-
-
-
+//----------------------------------------PET-----------------------------------------------------//
+export const PET_COLLECTION_ENTRY: string = "PET";
+export const PET_ID_ENTRY: string = "ID";
+export const PET_NAME_ENTRY: string = "NAME";
+export const PET_TYPE_ENTRY: string = "TYPE";
+export const PET_SUBTYPE_ENTRY: string = "SUBTYPE";
+export const PET_GENDER_ENTRY: string = "GENDER";
+export const PET_DESCRIPTION_ENTRY: string = "DESCRIPTION";
+export const PET_IMAGES_ENTRY: string = "IMAGES";

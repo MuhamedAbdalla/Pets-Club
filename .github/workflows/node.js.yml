@@ -23,7 +23,19 @@ jobs:
               run: |
                   npm uninstall typescript --no-save
                   npm uninstall tslint --no-save
+            - name: install chat dependencies
+              run: |
+                  npm install "microservices/chat" --production=false
+                  cd "microservices/chat/" &&  npm install @typescript-eslint/eslint-plugin@latest --save-dev
+            - name: chat test
+              run: |
+                npm install "microservices/chat" --production=false
+                cd "microservices/chat/" && npm test
             - name: install user dependencies
               run: |
                   npm install "microservices/user" --production=false
-                  cd "microservices/user" &&  npm install @typescript-eslint/eslint-plugin@latest --save-dev && npx eslint "./**.ts"
+                  cd "microservices/user/" &&  npm install @typescript-eslint/eslint-plugin@latest --save-dev
+            - name: user and pets tests
+              run: |
+                npm install "microservices/user" --production=false
+                cd "microservices/user/" && npm test

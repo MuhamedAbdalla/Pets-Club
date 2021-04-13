@@ -1,6 +1,6 @@
 import { makeUser, verifyPassword } from ".";
 import { USER } from "../../../config";
-import { Pet } from "../pet/Pet";
+import { Pet } from "../pet/pet";
 import { generateRandomString } from "../util";
 
 describe("test createing user", () => {

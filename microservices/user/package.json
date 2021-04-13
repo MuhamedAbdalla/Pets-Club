@@ -19,12 +19,17 @@
   },
   "homepage": "https://github.com/Snow-Slake/Pets-Club#readme",
   "dependencies": {
+    "@types/jest": "^26.0.20",
     "body-parser": "^1.19.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "expresss": "0.0.0",
     "firebase": "^8.3.1",
+    "firebase-admin": "^9.6.0",
     "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
     "xhr2": "^0.2.1"
   },
   "devDependencies": {
@@ -37,7 +42,12 @@
     "supertest": "^6.1.3",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
     "tslint": "^6.1.3",
+    "babel-jest": "^24.4.0",
+    "eslint": "^7.17.0",
+    "jest-runner-tsc": "^1.6.0",
     "typescript": "^4.2.3"
   }
 }

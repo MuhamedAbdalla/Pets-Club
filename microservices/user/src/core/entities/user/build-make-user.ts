@@ -1,5 +1,5 @@
 import { User } from "./user";
-import { Pet } from "../pet/Pet";
+import { Pet } from "../pet/pet";
 import { USER } from "../../../config";
 import { LatitudeNotValid, LongitudeNotValid } from "./exceptions/location";
 

@@ -1,4 +1,5 @@
-import { Pet } from "./Pet";
+import { Pet } from "./pet";
+
 
 export function buildMakePet(
     generatePetId:() => string, 

@@ -1,0 +1,54 @@
+{
+  "name": "user",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.ts",
+    "test": "jest --coverage",
+    "lint": "./node_modules/.bin/eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Snow-Slake/Pets-Club.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Snow-Slake/Pets-Club/issues"
+  },
+  "homepage": "https://github.com/Snow-Slake/Pets-Club#readme",
+  "dependencies": {
+    "@types/jest": "^26.0.20",
+    "body-parser": "^1.19.0",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "expresss": "0.0.0",
+    "firebase": "^8.3.1",
+    "firebase-admin": "^9.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1",
+    "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/jest": "^26.0.21",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/node": "^14.14.35",
+    "@types/supertest": "^2.0.11",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "babel-jest": "^24.4.0",
+    "eslint": "^7.17.0",
+    "jest": "^26.6.3",
+    "jest-runner-tsc": "^1.6.0",
+    "supertest": "^6.1.3",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.3"
+  }
+}
